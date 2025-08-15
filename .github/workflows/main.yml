@@ -37,7 +37,7 @@ jobs:
   
     - name: Get commit SHA
       id: get_sha
-      run: echo "sha=$(echo ${{ github.sha }}) | head -c 8)" >> $GITHUB_OUTPUT
+      run: echo "sha=$(echo ${{ github.sha }} | head -c 8)" >> $GITHUB_OUTPUT
   
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
