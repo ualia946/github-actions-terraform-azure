@@ -23,7 +23,7 @@ resource "azurerm_container_group" "aci-flask" {
 
   container {
     name   = "dvwa"
-    image  = "${azurerm_container_registry.acr-flask.login_server}/flask-app:v1"
+    image  = "${azurerm_container_registry.acr-flask.login_server}/flask-app:${var.docker_image_tag}"
     cpu    = "1.0"
     memory = "1.0"
     ports {
