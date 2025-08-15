@@ -3,7 +3,7 @@ resource "azurerm_public_ip" "public-ip-appgateway" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = "France Central"
   allocation_method   = "Static"
-  sku = "Standard"
+  sku                 = "Standard"
 }
 
 locals {
@@ -38,21 +38,21 @@ resource "azurerm_application_gateway" "appgateway" {
   }
 
   frontend_ip_configuration {
-    name = local.frontend_ip_configuration_name
+    name                 = local.frontend_ip_configuration_name
     public_ip_address_id = azurerm_public_ip.public-ip-appgateway.id
   }
 
   backend_address_pool {
-    name = local.backend_address_pool_name
-    ip_addresses = [ azurerm_container_group.aci-flask.ip_address ]
+    name         = local.backend_address_pool_name
+    ip_addresses = [azurerm_container_group.aci-flask.ip_address]
   }
 
   backend_http_settings {
-    name = local.http_setting_name
+    name                  = local.http_setting_name
     cookie_based_affinity = "Disabled"
-    port = 80
-    protocol = "Http"
-    request_timeout = 60
+    port                  = 80
+    protocol              = "Http"
+    request_timeout       = 60
   }
 
   http_listener {
