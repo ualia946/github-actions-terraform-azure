@@ -6,7 +6,7 @@ on:
 
 #Variables de entorno
 env:
-  ACR_NAME: "acrflask"
+  ACR_NAME: "acrflaskgitactions"
   RG_NAME: "rg-terraform-dev-francecentral"
   IMAGE_NAME: "appflask"
 
