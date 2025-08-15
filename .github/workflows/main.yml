@@ -44,7 +44,7 @@ jobs:
       with:
         context: ./app
         push: true
-        tags: ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:{{ steps.get_sha.outputs.sha }}
+        tags: ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ steps.get_sha.outputs.sha }}
   
     - name: Terraform Apply (All Resources)
       run: terraform -chdir=./terraform apply -auto-approve -var="docker_image_tag=${{ steps.get_sha.outputs.sha }}"
