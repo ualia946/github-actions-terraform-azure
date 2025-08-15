@@ -1,5 +1,5 @@
 resource "azurerm_container_registry" "acr-flask" {
-  name                = "acrflask"
+  name                = "acrflaskgitactions"
   resource_group_name = azurerm_resource_group.rg.name
   location            = "France Central"
   sku                 = "Basic"
