@@ -8,42 +8,43 @@ on:
 env:
   ACR_NAME: "acrflask"
   RG_NAME: "rg-terraform-dev-francecentral"
+  IMAGE_NAME: "appflask"
 
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
 
-  steps:
-  - name: Checkout repository
-    uses: actions/checkout@v4
-
-  - name: Azure login
-    uses: azure/login@v2
-    with:
-      creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
-
-  - name: Setup Terraform
-    uses: hashicorp/setup-terraform@v3
-
-  - name: Terraform Init
-    run: terraform -chdir=./terraform init
-
-  - name: Terraform Apply (Only ACR)
-    run: terraform -chdir=./terraform apply -auto-approve -target=azurerm_container_registry.acr-flask
-
-  - name: Log in ACR
-    run: az acr login --name ${{env.ACR_NAME}}
-
-  - name: Get commit SHA
-    id: get_sha
-    run: echo "sha=$(echo ${{ github.sha }}) | head -c 8)" >> $GITHUB_OUTPUT
-
-  - name: Build and push Docker image
-    uses: docker/build-push-action@v5
-    with:
-      context: ./app
-      push: true
-      tags: ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:{{ steps.get_sha.outputs.sha }}
-
-  - name: Terraform Apply (All Resources)
-    run: terraform -chdir=./terraform apply -auto-approve -var="docker_image_tag=${{ steps.get_sha.outputs.sha }}"
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+  
+    - name: Azure login
+      uses: azure/login@v2
+      with:
+        creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
+  
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+  
+    - name: Terraform Init
+      run: terraform -chdir=./terraform init
+  
+    - name: Terraform Apply (Only ACR)
+      run: terraform -chdir=./terraform apply -auto-approve -target=azurerm_container_registry.acr-flask
+  
+    - name: Log in ACR
+      run: az acr login --name ${{env.ACR_NAME}}
+  
+    - name: Get commit SHA
+      id: get_sha
+      run: echo "sha=$(echo ${{ github.sha }}) | head -c 8)" >> $GITHUB_OUTPUT
+  
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./app
+        push: true
+        tags: ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:{{ steps.get_sha.outputs.sha }}
+  
+    - name: Terraform Apply (All Resources)
+      run: terraform -chdir=./terraform apply -auto-approve -var="docker_image_tag=${{ steps.get_sha.outputs.sha }}"
