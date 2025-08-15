@@ -27,7 +27,7 @@ resource "azurerm_container_group" "aci-flask" {
     cpu    = "1.0"
     memory = "1.0"
     ports {
-      port     = 80
+      port     = 5000
       protocol = "TCP"
     }
   }
