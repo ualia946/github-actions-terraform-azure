@@ -1,6 +1,9 @@
 # CI/CD Pipeline para una Aplicación Contenerizada en Azure con Terraform
 
-![Azure](https://img-shields-io.proxy.startpage.com/badge/azure-%230078D4.svg?style=for-the-badge&logo=microsoftazure&logoColor=white) ![Terraform](https://img-shields-io.proxy.startpage.com/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white) ![Docker](https://img-shields-io.proxy.startpage.com/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![GitHub Actions](https://img-shields-io.proxy.startpage.com/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+[![Azure](https://img.shields.io/badge/azure-0078D4?style=for-the-badge&logo=azure&logoColor=white)](https://azure.microsoft.com)
+[![Terraform](https://img.shields.io/badge/terraform-623CE4?style=for-the-badge&logo=terraform&logoColor=white)](https://developer.hashicorp.com/terraform)
+[![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/features/actions)
+[![Docker](https://img.shields.io/badge/docker-1D63ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
 Este repositorio implementa un pipeline completo de **Integración Continua y Despliegue Continuo (CI/CD)** para una aplicación web en contenedores, desde el código fuente hasta la producción en Microsoft Azure.
 
